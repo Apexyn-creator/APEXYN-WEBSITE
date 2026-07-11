@@ -305,31 +305,25 @@ function Process() {
 
   return (
     <section id="process" className="py-24 px-5">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <div className="text-center mb-16">
           <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">How It Works</p>
           <h2 className="text-3xl md:text-5xl font-black text-blue-300 mb-4">A Clear Path From Search to Offer</h2>
           <p className="text-slate-400 max-w-xl mx-auto">Six steps, fully managed, with visibility into every stage along the way.</p>
         </div>
 
-        <div className="relative">
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/40 via-cyan-500/20 to-transparent -translate-x-1/2"/>
-          <div className="space-y-6 md:space-y-0">
-            {steps.map((s, i) => (
-              <div key={s.step} className={`md:grid md:grid-cols-2 md:gap-10 items-center ${i !== 0 ? "md:mt-10" : ""}`}>
-                <div className={`${i % 2 === 0 ? "md:order-1 md:text-right" : "md:order-2"}`}>
-                  <GlassCard className="p-6 inline-block w-full">
-                    <div className="flex items-center gap-3 mb-2 md:justify-end" style={i % 2 !== 0 ? { justifyContent: "flex-start" } : {}}>
-                      <span className={`text-2xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent ${i % 2 === 0 ? "md:order-2" : ""}`}>{s.step}</span>
-                      <h3 className={`text-white font-bold text-lg ${i % 2 === 0 ? "md:order-1" : ""}`}>{s.title}</h3>
-                    </div>
-                    <p className="text-slate-400 text-sm leading-relaxed">{s.desc}</p>
-                  </GlassCard>
-                </div>
-                <div className={`hidden md:block ${i % 2 === 0 ? "md:order-2" : "md:order-1"}`}/>
+        <div className="space-y-5">
+          {steps.map((s) => (
+            <GlassCard key={s.step} className="p-6 flex items-start gap-5">
+              <div className="shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                <span className="text-white font-black text-base">{s.step}</span>
               </div>
-            ))}
-          </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-xl md:text-2xl font-black text-cyan-300 mb-2 break-words">{s.title}</h3>
+                <p className="text-slate-300 text-sm leading-relaxed">{s.desc}</p>
+              </div>
+            </GlassCard>
+          ))}
         </div>
       </div>
     </section>
@@ -345,7 +339,7 @@ function Pricing() {
       period: "one-time",
       desc: "Full access to daily applications, resume tailoring, and LinkedIn optimization for a month.",
       features: ["40–45 applications per weekday", "Resume tailoring for low-match roles", "LinkedIn profile optimization", "Daily tracking reports", "All visa types accepted"],
-      highlight: false,
+      highlight: true,
     },
     {
       name: "3 Months",
@@ -377,7 +371,7 @@ function Pricing() {
                   Most Popular
                 </span>
               )}
-              <h3 className="text-white font-bold text-2xl mb-1">{p.name}</h3>
+              <h3 className="text-cyan-300 font-black text-2xl mb-1">{p.name}</h3>
               <div className="flex items-baseline gap-2 mb-4">
                 <span className="text-4xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">{p.price}</span>
                 <span className="text-slate-500 text-sm">{p.period}</span>
@@ -411,23 +405,111 @@ function Pricing() {
 
 // ── Contact ────────────────────────────────────────────────────────────────
 function Contact() {
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    const form = e.target;
+    const data = new FormData(form);
+    try {
+      const res = await fetch("https://formspree.io/f/xykqreqw", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        setStatus("sent");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const inputClass =
+    "w-full px-4 py-3 rounded-xl bg-white text-black border border-white/15 placeholder:text-slate-500 text-sm focus:outline-none focus:border-blue-500/50 transition-all duration-200";
+
   return (
     <section id="contact" className="py-24 px-5">
       <div className="max-w-3xl mx-auto">
-        <GlassCard className="p-10 md:p-14 text-center bg-gradient-to-br from-blue-600/10 to-cyan-600/5" hover={false}>
+        <div className="text-center mb-12">
           <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">Get In Touch</p>
           <h2 className="text-3xl md:text-5xl font-black text-blue-300 mb-5">Ready to Land Your Next Role?</h2>
-          <p className="text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
-            Reach out and we'll get back to you to schedule your free consultation.
+          <p className="text-slate-400 max-w-xl mx-auto leading-relaxed">
+            Send us a message and we'll get back to you to schedule your free consultation.
           </p>
+        </div>
 
+        <GlassCard className="p-8 md:p-10 bg-gradient-to-br from-blue-600/10 to-cyan-600/5" hover={false}>
+          {status === "sent" ? (
+            <div className="text-center py-10">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-400 mb-5">
+                <span className="w-6 h-6">{Icon.check}</span>
+              </div>
+              <h3 className="text-white font-bold text-xl mb-2">Message sent</h3>
+              <p className="text-slate-400 text-sm">Thanks for reaching out — we'll reply to your email shortly.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid sm:grid-cols-2 gap-5">
+                <div>
+                  <label htmlFor="name" className="block text-slate-400 text-xs font-semibold uppercase tracking-wide mb-2">Name</label>
+                  <input id="name" name="name" type="text" required placeholder="Your name" className={inputClass} />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-slate-400 text-xs font-semibold uppercase tracking-wide mb-2">Email</label>
+                  <input id="email" name="email" type="email" required placeholder="you@example.com" className={inputClass} />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="service" className="block text-slate-400 text-xs font-semibold uppercase tracking-wide mb-2">Service</label>
+                <select
+                  id="service"
+                  name="service"
+                  required
+                  defaultValue=""
+                  className="w-full px-4 py-3 rounded-xl bg-white text-black border border-white/15 text-sm focus:outline-none focus:border-blue-500/50 transition-all duration-200"
+                >
+                  <option value="" disabled className="text-black bg-white">Select a service</option>
+                  <option value="Full-Time Job Applications" className="text-black bg-white">Full-Time Job Applications</option>
+                  <option value="Resume Tailoring" className="text-black bg-white">Resume Tailoring</option>
+                  <option value="LinkedIn Optimization" className="text-black bg-white">LinkedIn Optimization</option>
+                  <option value="Digital Resume Portfolio" className="text-black bg-white">Digital Resume Portfolio</option>
+                  <option value="Not sure yet" className="text-black bg-white">Not sure yet</option>
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-slate-400 text-xs font-semibold uppercase tracking-wide mb-2">Message</label>
+                <textarea id="message" name="message" required rows={5} placeholder="Tell us about your job search goals..." className={`${inputClass} resize-none`} />
+              </div>
+
+              {status === "error" && (
+                <p className="text-red-400 text-sm">Something went wrong — please try again, or email us directly.</p>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="w-full flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold text-base hover:opacity-90 hover:scale-[1.01] transition-all duration-200 shadow-lg shadow-blue-500/25 disabled:opacity-60 disabled:hover:scale-100"
+              >
+                {status === "sending" ? "Sending..." : "Send Message"}
+              </button>
+            </form>
+          )}
+        </GlassCard>
+
+        <div className="text-center mt-8">
           <a
             href="mailto:apexynsol@gmail.com"
-            className="inline-flex items-center gap-3 px-7 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold text-base hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-lg shadow-blue-500/25"
+            className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm transition-colors"
           >
-            {Icon.mail} apexynsol@gmail.com
+            {Icon.mail} Or email us directly at apexynsol@gmail.com
           </a>
-        </GlassCard>
+        </div>
       </div>
     </section>
   );
