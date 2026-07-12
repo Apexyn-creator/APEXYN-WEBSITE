@@ -70,21 +70,7 @@ function Navbar() {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/90 backdrop-blur-md border-b border-slate-200 py-3 shadow-sm" : "py-5"}`}>
       <div className="max-w-6xl mx-auto px-5 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M22 4L32 36H26.5L22 15L17.5 36H12L22 4Z" fill="url(#navLogoGrad)"/>
-            <path d="M14 36C18 27 24 24 33 18" stroke="url(#navLogoGrad2)" strokeWidth="3.2" strokeLinecap="round" fill="none"/>
-            <circle cx="22" cy="4" r="2.2" fill="#0891b2"/>
-            <defs>
-              <linearGradient id="navLogoGrad" x1="12" y1="4" x2="32" y2="36" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#2563eb"/>
-                <stop offset="1" stopColor="#1e3a8a"/>
-              </linearGradient>
-              <linearGradient id="navLogoGrad2" x1="14" y1="36" x2="33" y2="18" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#1e3a8a"/>
-                <stop offset="1" stopColor="#0891b2"/>
-              </linearGradient>
-            </defs>
-          </svg>
+          <img src="/logo.jpeg" alt="Apexyn Solutions" className="w-11 h-11 rounded-lg object-cover" />
           <span className="font-black text-3xl tracking-tight bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-600 bg-clip-text text-transparent">Apexyn <span className="text-cyan-600">Solutions</span></span>
         </div>
         <div className="hidden md:flex items-center gap-7">
@@ -132,7 +118,7 @@ function Hero() {
           US Career Services · All Visa Types Accepted
         </div>
 
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 leading-tight mb-6 tracking-tight">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-6 tracking-tight">
           Your Next Full-Time<br/>
           <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 bg-clip-text text-transparent">Opportunity</span> Starts Here
         </h1>
@@ -343,7 +329,7 @@ function Pricing() {
       period: "one-time",
       desc: "Full access to daily applications, resume tailoring, and LinkedIn optimization for a month.",
       features: ["40–45 applications per weekday", "Resume tailoring for low-match roles", "LinkedIn profile optimization", "Daily tracking reports", "All visa types accepted"],
-      highlight: true,
+      badge: "Most Popular",
     },
     {
       name: "3 Months",
@@ -351,7 +337,7 @@ function Pricing() {
       period: "one-time",
       desc: "Our most popular plan — extended runway for a thorough, sustained job search.",
       features: ["Everything in the 1-Month plan", "3 full months of daily applications", "Ongoing resume & LinkedIn refinement", "Ongoing strategy check-ins", "Best value per month"],
-      highlight: true,
+      badge: "Most Popular",
     },
     {
       name: "LinkedIn Optimization",
@@ -359,7 +345,7 @@ function Pricing() {
       period: "one-time",
       desc: "A complete LinkedIn makeover to boost recruiter visibility and personal branding — as a standalone service.",
       features: ["Headline & summary rewrite", "Recruiter search visibility boost", "Skill endorsement strategy", "Personal brand positioning"],
-      highlight: false,
+      badge: "Quick Win",
     },
     {
       name: "Digital Resume Card",
@@ -367,7 +353,7 @@ function Pricing() {
       period: "one-time",
       desc: "An interactive digital resume card that showcases your story beyond a PDF — standalone service.",
       features: ["Interactive web portfolio", "Mobile-optimized design", "Shareable custom link", "Project & skills showcase"],
-      highlight: false,
+      badge: "Stand Out",
     },
   ];
 
@@ -384,13 +370,11 @@ function Pricing() {
           {plans.map((p) => (
             <GlassCard
               key={p.name}
-              className={`p-8 flex flex-col ${p.highlight ? "border-blue-300 bg-gradient-to-b from-blue-50 to-cyan-50" : ""}`}
+              className="p-8 flex flex-col border-blue-300 bg-gradient-to-b from-blue-50 to-cyan-50"
             >
-              {p.highlight && (
-                <span className="self-start mb-4 text-xs font-semibold px-3 py-1 rounded-full bg-blue-100 text-blue-700 border border-blue-200">
-                  Most Popular
-                </span>
-              )}
+              <span className="self-start mb-4 text-xs font-semibold px-3 py-1 rounded-full bg-blue-100 text-blue-700 border border-blue-200">
+                {p.badge}
+              </span>
               <h3 className="text-blue-700 font-black text-2xl mb-1">{p.name}</h3>
               <div className="flex items-baseline gap-2 mb-4">
                 <span className="text-4xl font-black bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">{p.price}</span>
@@ -404,7 +388,7 @@ function Pricing() {
                   </li>
                 ))}
               </ul>
-              <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }} className={`w-full text-center px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${p.highlight ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white hover:opacity-90 shadow-sm shadow-blue-200" : "bg-white border border-slate-300 text-slate-900 hover:bg-slate-50"}`}>
+              <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }} className="w-full text-center px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 bg-gradient-to-r from-blue-600 to-cyan-500 text-white hover:opacity-90 shadow-sm shadow-blue-200">
                 Get Started
               </a>
             </GlassCard>
