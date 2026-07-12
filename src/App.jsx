@@ -403,12 +403,8 @@ function Pricing() {
                     <span className="text-emerald-600 shrink-0">{Icon.check}</span>{f}
                   </li>
                 ))}
-             </ul>
-              
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
-                className={`w-full text-center px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${p.highlight ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white hover:opacity-90 shadow-sm shadow-blue-200" : "bg-white border border-slate-300 text-slate-900 hover:bg-slate-50"}`}
-              >
+              </ul>
+              <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }} className={`w-full text-center px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${p.highlight ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white hover:opacity-90 shadow-sm shadow-blue-200" : "bg-white border border-slate-300 text-slate-900 hover:bg-slate-50"}`}>
                 Get Started
               </a>
             </GlassCard>
@@ -488,7 +484,7 @@ function Reviews() {
 
 // ── Contact ────────────────────────────────────────────────────────────────
 function Contact() {
-  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [status, setStatus] = useState("idle");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -549,13 +545,7 @@ function Contact() {
               </div>
               <div>
                 <label htmlFor="service" className="block text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Service</label>
-                <select
-                  id="service"
-                  name="service"
-                  required
-                  defaultValue=""
-                  className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 border border-slate-300 text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
-                >
+                <select id="service" name="service" required defaultValue="" className="w-full px-4 py-3 rounded-xl bg-white text-slate-900 border border-slate-300 text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200">
                   <option value="" disabled>Select a service</option>
                   <option value="Full-Time Job Applications">Full-Time Job Applications</option>
                   <option value="Resume Tailoring">Resume Tailoring</option>
@@ -574,11 +564,7 @@ function Contact() {
                 <p className="text-red-600 text-sm">Something went wrong — please try again, or email us directly.</p>
               )}
 
-              <button
-                type="submit"
-                disabled={status === "sending"}
-                className="w-full flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold text-base hover:opacity-90 hover:scale-[1.01] transition-all duration-200 shadow-lg shadow-blue-500/20 disabled:opacity-60 disabled:hover:scale-100"
-              >
+              <button type="submit" disabled={status === "sending"} className="w-full flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold text-base hover:opacity-90 hover:scale-[1.01] transition-all duration-200 shadow-lg shadow-blue-500/20 disabled:opacity-60 disabled:hover:scale-100">
                 {status === "sending" ? "Sending..." : "Send Message"}
               </button>
             </form>
@@ -586,18 +572,10 @@ function Contact() {
         </GlassCard>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mt-8">
-          
-            href="mailto:apexynsol@gmail.com"
-            className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-sm transition-colors"
-          >
+          <a href="mailto:apexynsol@gmail.com" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-sm transition-colors">
             {Icon.mail} apexynsol@gmail.com
           </a>
-          
-            href={LINKEDIN_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-sm transition-colors"
-          >
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-sm transition-colors">
             <span className="w-5 h-5">{Icon.linkedin}</span> Connect on LinkedIn
           </a>
         </div>
@@ -664,18 +642,8 @@ function NewsletterPopup() {
             <h4 className="text-slate-900 font-bold text-sm mb-1 pr-6">Stay in the loop</h4>
             <p className="text-slate-500 text-xs mb-4">Get job search tips & service updates in your inbox.</p>
             <div className="flex gap-2">
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="you@example.com"
-                className="flex-1 px-3 py-2.5 rounded-lg bg-white text-slate-900 border border-slate-300 text-sm placeholder:text-slate-400 focus:outline-none focus:border-blue-500"
-              />
-              <button
-                type="submit"
-                disabled={status === "sending"}
-                className="px-4 py-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
-              >
+              <input type="email" name="email" required placeholder="you@example.com" className="flex-1 px-3 py-2.5 rounded-lg bg-white text-slate-900 border border-slate-300 text-sm placeholder:text-slate-400 focus:outline-none focus:border-blue-500" />
+              <button type="submit" disabled={status === "sending"} className="px-4 py-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60">
                 {status === "sending" ? "..." : "Join"}
               </button>
             </div>
