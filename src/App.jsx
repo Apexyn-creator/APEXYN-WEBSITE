@@ -403,7 +403,7 @@ function Pricing() {
                     <span className="text-emerald-600 shrink-0">{Icon.check}</span>{f}
                   </li>
                 ))}
-              </ul>
+             </ul>
               
                 href="#contact"
                 onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
