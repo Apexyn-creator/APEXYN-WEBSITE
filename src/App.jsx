@@ -70,7 +70,7 @@ function Navbar() {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/90 backdrop-blur-md border-b border-slate-200 py-3 shadow-sm" : "py-5"}`}>
       <div className="max-w-6xl mx-auto px-5 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <img src="/logo.jpeg" alt="Apexyn Solutions" className="w-11 h-11 rounded-lg object-cover" />
+          <img src="/logo.png" alt="Apexyn Solutions" className="w-11 h-11 object-contain" />
           <span className="font-black text-3xl tracking-tight bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-600 bg-clip-text text-transparent">Apexyn <span className="text-cyan-600">Solutions</span></span>
         </div>
         <div className="hidden md:flex items-center gap-7">
@@ -104,7 +104,7 @@ function Navbar() {
 function Hero() {
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-white">
+    <section className="relative flex items-center justify-center overflow-hidden pt-28 pb-16 md:min-h-screen md:pt-20 md:pb-0 bg-white">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-blue-200/40 blur-[120px] animate-pulse" style={{ animationDuration: "4s" }}/>
         <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-cyan-200/40 blur-[100px] animate-pulse" style={{ animationDuration: "6s" }}/>
